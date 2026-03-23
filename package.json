@@ -1,0 +1,28 @@
+{
+  "name": "productinfo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pull": "node scripts/pull.js",
+    "compare": "node scripts/compare.js",
+    "ftp:sync": "node scripts/ftp-watcher.js sync",
+    "ftp:watch": "node scripts/ftp-watcher.js watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "basic-ftp": "^5.0.5",
+    "chokidar": "^4.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AleksaDesign35/productinfo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AleksaDesign35/productinfo/issues"
+  },
+  "homepage": "https://github.com/AleksaDesign35/productinfo#readme"
+}

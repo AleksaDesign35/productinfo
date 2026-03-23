@@ -1,0 +1,631 @@
+---
+alwaysApply: true
+---
+---
+alwaysApply: true
+---
+
+You are working on a custom WordPress theme project.
+
+You must strictly follow all the rules below in every response, every code generation, every refactor, and every file suggestion.
+
+==================================================
+GLOBAL DESIGN RULES
+==================================================
+
+The website design system is fixed and must be respected across the whole project unless explicitly told otherwise.
+
+Allowed colors only:
+- Background: #000
+- Primary accent color for borders, buttons, highlights, focus states and important UI details: #FFDD0F
+- Main text color: #fff
+- Muted text color: #555
+
+Do not introduce any additional colors unless explicitly approved.
+Do not generate gradients, shadows, overlays, or hover states with any other colors unless explicitly approved.
+Every section and every page must follow this color system consistently.
+Forbidden color (never use): #c36 / #cc3366.
+
+==================================================
+TECH STACK AND GENERAL DEVELOPMENT RULES
+==================================================
+
+Project stack:
+- WordPress custom theme
+- PHP
+- SCSS
+- BEM methodology
+- jQuery only when JavaScript is needed
+- Gulp for build pipeline
+- SCSS compiled into CSS through gulp build / gulp watch
+
+Do not use Tailwind.
+Do not use CSS-in-JS.
+Do not use React.
+Do not use unnecessary libraries.
+Do not use vanilla JS if jQuery is the requested project standard.
+Keep JavaScript lightweight and modular.
+
+Do not add code comments unless explicitly requested.
+Do not add placeholder explanations inside code.
+Return production-oriented code.
+
+==================================================
+ARCHITECTURE RULES
+==================================================
+
+The codebase must be modular, scalable, and clearly organized.
+
+Never place large logic directly inside functions.php.
+functions.php should only load external modular PHP files.
+
+Every responsibility must live in its own file whenever possible.
+
+Use a scalable structure like this unless the task clearly requires a different one:
+
+theme/
+├── assets/
+│   ├── css/
+│   │   └── app.css
+│   ├── js/
+│   │   ├── components/
+│   │   │   └── hero.js
+│   │   ├── global/
+│   │   │   └── site.js
+│   │   └── app.js
+│   ├── scss/
+│   │   ├── abstracts/
+│   │   │   ├── _variables.scss
+│   │   │   ├── _mixins.scss
+│   │   │   ├── _functions.scss
+│   │   │   └── _breakpoints.scss
+│   │   ├── base/
+│   │   │   ├── _reset.scss
+│   │   │   ├── _globals.scss
+│   │   │   ├── _typography.scss
+│   │   │   └── _helpers.scss
+│   │   ├── layout/
+│   │   │   ├── _header.scss
+│   │   │   ├── _footer.scss
+│   │   │   ├── _grid.scss
+│   │   │   └── _containers.scss
+│   │   ├── components/
+│   │   │   ├── _buttons.scss
+│   │   │   ├── _forms.scss
+│   │   │   ├── _cards.scss
+│   │   │   └── _section-heading.scss
+│   │   ├── sections/
+│   │   │   ├── _hero.scss
+│   │   │   ├── _about.scss
+│   │   │   ├── _menu-preview.scss
+│   │   │   ├── _gallery.scss
+│   │   │   └── _contact.scss
+│   │   ├── pages/
+│   │   │   ├── _home.scss
+│   │   │   ├── _about-page.scss
+│   │   │   ├── _menu-page.scss
+│   │   │   └── _contact-page.scss
+│   │   └── app.scss
+│   └── images/
+├── inc/
+│   ├── setup/
+│   │   ├── theme-support.php
+│   │   ├── menus.php
+│   │   ├── image-sizes.php
+│   │   └── cleanup.php
+│   ├── enqueue/
+│   │   ├── styles.php
+│   │   └── scripts.php
+│   ├── post-types/
+│   ├── taxonomies/
+│   ├── acf/
+│   │   └── fields.php
+│   ├── helpers/
+│   │   ├── template-functions.php
+│   │   ├── formatting.php
+│   │   └── media.php
+│   ├── integrations/
+│   └── ajax/
+├── template-parts/
+│   ├── sections/
+│   │   ├── hero.php
+│   │   ├── about.php
+│   │   ├── menu-preview.php
+│   │   └── gallery.php
+│   ├── components/
+│   │   ├── button.php
+│   │   ├── section-heading.php
+│   │   └── card.php
+│   └── layout/
+│       ├── header.php
+│       └── footer.php
+├── page-templates/
+│   ├── template-home.php
+│   ├── template-contact.php
+│   └── template-about.php
+├── functions.php
+├── header.php
+├── footer.php
+├── index.php
+├── front-page.php
+├── page.php
+└── single.php
+
+==================================================
+PHP RULES
+==================================================
+
+functions.php must stay minimal.
+It should only require/include modular files from /inc/.
+
+Example principle:
+- theme setup goes into /inc/setup/
+- enqueue logic goes into /inc/enqueue/
+- helper functions go into /inc/helpers/
+- AJAX logic goes into /inc/ajax/
+- ACF logic goes into /inc/acf/
+
+Never dump unrelated logic into one large PHP file.
+Always separate concerns.
+
+When generating PHP templates:
+- keep them clean
+- keep markup readable
+- keep logic minimal inside templates
+- move reusable logic into helpers when necessary
+
+Use WordPress best practices:
+- escaping where appropriate
+- translation-ready functions if needed
+- proper WordPress template hierarchy
+- no hardcoded asset URLs if they belong to the theme
+- no direct SQL unless explicitly needed
+- no duplicated logic
+
+==================================================
+SCSS RULES
+==================================================
+
+Use SCSS with strict BEM naming.
+
+Examples:
+- .hero
+- .hero__inner
+- .hero__content
+- .hero__title
+- .hero--home
+
+Rules:
+- each section has its own SCSS partial inside /assets/scss/sections/
+- each reusable component has its own SCSS partial inside /assets/scss/components/
+- each page-specific styling has its own SCSS partial inside /assets/scss/pages/
+- global tokens and shared SCSS tools go into /assets/scss/abstracts/
+- app.scss is the main entry file
+
+Do not place all styles in one SCSS file.
+Do not mix unrelated section styles together.
+Do not create deep and messy selectors.
+Prefer flat, readable BEM structure.
+
+SCSS output must be optimized, readable, and scalable.
+Avoid unnecessary nesting.
+Keep nesting shallow and purposeful.
+Use variables and mixins when helpful, but do not overengineer.
+
+Always respect the fixed color palette:
+- #000
+- #FFDD0F
+- #fff
+- #555
+
+==================================================
+JAVASCRIPT / JQUERY RULES
+==================================================
+
+If a section needs JavaScript, create a dedicated file for it.
+
+Example:
+- Hero section script: /assets/js/components/hero.js
+
+Rules:
+- use jQuery
+- keep scripts lightweight
+- each section script should only handle its own behavior
+- global site-wide JS can live in /assets/js/global/site.js
+- app.js can initialize or import/require component logic depending on project setup
+
+Do not create bloated scripts.
+Do not mix unrelated features into one file.
+Do not add animations or effects unless they have clear value.
+Performance and simplicity come first.
+
+==================================================
+IMAGE HANDLING RULES
+==================================================
+
+Images will be managed through WordPress Media Library whenever the image is content-related.
+
+Important:
+Do not hardcode uploaded Media Library image paths inside SCSS.
+Do not assume static relative file paths for uploaded content.
+
+For Media Library images:
+- use WordPress image functions
+- use attachment IDs when available
+- render images through PHP
+- for background images, pass the Media Library image URL through inline style or CSS custom property from PHP when needed
+
+For static theme assets only:
+- use theme-relative paths with proper WordPress functions
+
+This distinction is mandatory:
+- theme design asset = theme path
+- content image uploaded in Media Library = WordPress media function
+
+==================================================
+OUTPUT EXPECTATIONS
+==================================================
+
+Whenever generating code, always:
+1. first list the files that need to be created or updated
+2. keep the structure modular
+3. return complete code for each file
+4. make naming predictable and scalable
+5. avoid shortcuts that hurt future maintainability
+
+If a new section is requested, always think in this structure:
+- template file for markup
+- SCSS partial for styling
+- JS file only if interaction is needed
+- enqueue/update logic only if necessary
+
+If a new feature is requested, always place it in the correct folder based on responsibility.
+
+==================================================
+WORDPRESS THEME QUALITY STANDARDS
+==================================================
+
+Code must be:
+- scalable
+- modular
+- maintainable
+- optimized
+- clean
+- consistent
+- production-oriented
+
+Avoid:
+- giant files
+- inline CSS unless necessary for dynamic Media Library backgrounds
+- inline JS
+- duplicated markup structures
+- random folder organization
+- mixed naming conventions
+- inconsistent BEM naming
+- unnecessary plugins if custom theme logic is enough
+
+==================================================
+DESIGN CONSISTENCY RULES
+==================================================
+
+Across all pages and sections:
+- background remains #000
+- accent remains #FFDD0F
+- primary text remains #fff
+- muted text remains #555
+
+Buttons, borders, highlights, active states and important accents should consistently use #FFDD0F.
+Text hierarchy should rely on #fff and #555 only.
+Do not introduce visual inconsistency.
+
+==================================================
+HOW YOU SHOULD RESPOND
+==================================================
+
+When asked to build something:
+- think like a senior WordPress theme architect
+- think about long-term scalability first
+- preserve structure
+- preserve consistency
+- preserve performance
+
+Always generate code in the project style described above.
+Never ignore these rules unless explicitly instructed to do so.
+
+Indentation is mandatory:
+- 1 level = 4 spaces
+- 2 levels = 8 spaces
+- 3 levels = 12 spaces
+
+Do not mix tabs and spaces under any circumstances.
+
+
+==================================================
+RESPONSIVE AND LAYOUT SYSTEM RULES
+==================================================
+
+All layouts must be built mobile-first.
+
+The whole project must use one consistent responsive system.
+Do not create different container widths, spacing logic, or breakpoint logic from section to section unless explicitly instructed.
+
+==================================================
+CONTAINER RULES
+==================================================
+
+Use a shared container system across the entire website.
+
+Every section must follow the same structural pattern:
+- section wrapper
+- inner container
+- section content/grid
+
+Use one main container class system consistently.
+
+Recommended structure:
+- .container
+- .container--wide
+- .container--narrow
+- .container--full only when explicitly needed
+
+Default behavior:
+- container width: 100%
+- container max-width should be controlled globally
+- container side padding must adapt per viewport
+- content should never touch screen edges on tablet or mobile
+
+Use a global container system like this:
+- desktop max-width: 1200px to 1320px
+- wide container: 1400px if truly needed
+- narrow container: 900px to 1000px for text-heavy sections
+- mobile/tablet side padding must be consistent across all sections
+
+Never hardcode random widths per section.
+Never create one section with one container logic and another section with a different one.
+The same container principles must be used everywhere.
+
+==================================================
+RESPONSIVE SPACING RULES
+==================================================
+
+Use a consistent spacing scale across the whole project.
+
+Do not hardcode random pixel spacing values independently inside sections.
+Use shared spacing tokens, SCSS variables, functions, or mixins.
+
+Spacing must be fluid and scalable.
+Prefer:
+- clamp() for section padding, margins, and typography
+- percentages
+- max-width
+- gap
+- flex and grid
+- minmax()
+- width: 100%
+
+Avoid fixed layout values when fluid values are more appropriate.
+
+Section spacing must feel visually consistent across the whole site.
+Do not make one section very tight and another overly spacious without a clear reason.
+
+All sections should use the same vertical rhythm.
+
+==================================================
+TYPOGRAPHY RESPONSIVE RULES
+==================================================
+
+Typography must scale fluidly across viewport sizes.
+
+Do not use rigid font sizes everywhere.
+Prefer clamp() for:
+- hero titles
+- section titles
+- body text when appropriate
+- buttons if needed
+
+Typography hierarchy must stay consistent across all pages and sections.
+Do not create random heading sizes from section to section.
+
+Use a shared type scale:
+- hero title
+- section title
+- subsection title
+- body text
+- small text
+
+All must be controlled centrally.
+
+==================================================
+LAYOUT RULES
+==================================================
+
+Build layouts so they naturally adapt across:
+- mobile
+- tablet
+- laptop
+- desktop
+
+Do not rely on fixed heights.
+Do not rely on fixed card widths unless strictly necessary.
+Do not use hardcoded positioning if the same result can be achieved with flex or grid.
+
+Use:
+- CSS Grid for section layouts, cards, and complex alignment
+- Flexbox for smaller alignment patterns
+- gap instead of margin hacks wherever possible
+
+Prefer layouts like:
+- grid-template-columns with repeat()
+- minmax()
+- auto-fit
+- auto-fill when appropriate
+
+On smaller screens:
+- stacks should become single-column when needed
+- text should remain readable
+- buttons should remain tappable
+- spacing should stay balanced
+- media should scale proportionally
+
+==================================================
+IMAGE AND MEDIA RESPONSIVE RULES
+==================================================
+
+All images and media must be responsive by default.
+
+Use:
+- max-width: 100%
+- height: auto
+
+Avoid fixed image dimensions in layout unless required by design.
+If a ratio is needed, use aspect-ratio consistently.
+Use object-fit only when truly needed.
+
+Images must not overflow containers.
+Media blocks must align with the shared container system.
+
+==================================================
+CONSISTENCY RULES FOR ALL SECTIONS
+==================================================
+
+Every section must feel like part of the same design system.
+
+Do not generate:
+- one section with oversized padding and another with tiny padding
+- one section with a different container width
+- one section with random breakpoint behavior
+- one section using fixed px widths while another uses fluid logic
+
+All sections must follow the same responsive logic, same spacing system, same container behavior, and same typography scale.
+
+If a new section is added, it must inherit the same layout rules as the rest of the project.
+
+==================================================
+BREAKPOINT RULES
+==================================================
+
+Use one shared breakpoint system across the whole project.
+Do not invent breakpoints per section.
+
+Use centralized SCSS breakpoint variables/mixins.
+
+Example breakpoint logic:
+- xs: 480px
+- sm: 576px
+- md: 768px
+- lg: 1024px
+- xl: 1280px
+- xxl: 1440px
+
+All responsive changes must use the shared breakpoint system only.
+
+==================================================
+DEVELOPMENT RULES FOR RESPONSIVE OUTPUT
+==================================================
+
+When building any section:
+- first think mobile
+- then tablet
+- then desktop
+- preserve readability and spacing at every size
+- keep structure scalable
+- avoid hardcoded widths/heights unless absolutely necessary
+- use shared containers and spacing tokens
+- keep visual consistency with the rest of the website
+
+The final result must look structured, balanced, and consistent on desktop, tablet, and mobile.
+
+
+==================================================
+SCSS AUTHORING STYLE RULES
+==================================================
+
+Write real SCSS, not plain CSS inside .scss files.
+
+Use SCSS nesting consistently with BEM.
+
+Correct style:
+- keep the block as the top-level selector
+- nest elements inside the block using &
+- nest modifiers using &
+- nest pseudo-classes and pseudo-elements inside the related selector
+- keep nesting clean and readable
+- avoid unnecessary repetition of the full selector name
+
+Use this pattern:
+.block {
+    ...
+
+    &__element {
+        ...
+
+        &:hover,
+        &:focus {
+            ...
+        }
+    }
+
+    &--modifier {
+        ...
+    }
+}
+
+Do not write SCSS like plain CSS with repeated selectors such as:
+.block {}
+.block__element {}
+.block__element a {}
+.block__element a:hover {}
+
+Instead, group related styles inside the parent block whenever they belong to the same component.
+
+SCSS should feel modular, organized, and truly nested, while still staying readable and not becoming overly deep.
+
+Use nested SCSS structure by default.
+Do not output flat CSS-style selector repetition inside SCSS files unless there is a very specific reason.
+
+
+==================================================
+SHARED LAYOUT ABSTRACTION RULES
+==================================================
+
+Do not repeat shared layout declarations across section files.
+
+If the same layout pattern appears more than once, extract it into a reusable global abstraction.
+
+Shared patterns such as:
+- container widths
+- horizontal paddings
+- section max-width wrappers
+- flex alignment utilities
+- grid wrappers
+- vertical section spacing
+
+must not be rewritten inside every section partial.
+
+These shared patterns must be centralized in:
+- SCSS variables
+- SCSS mixins
+- SCSS placeholders if appropriate
+- global layout partials
+
+A global container system must exist and be reused everywhere.
+
+Do not redefine .container inside individual section files unless there is a very specific exception.
+Instead:
+- define .container globally once
+- define modifiers like .container--wide or .container--narrow globally if needed
+- let section files style only their own block and inner elements
+
+If a section needs layout behavior inside the container, use a section-specific inner wrapper such as:
+- .hero__inner
+- .header__inner
+- .about__inner
+
+Do not put section-specific flex or grid layout rules directly on .container if that would affect shared behavior.
+
+If the same SCSS declarations appear in multiple files, extract them into a shared mixin or global utility instead of duplicating them.
+
+
+
+Rezervacije: 097 660 88 85
+Cesta za Valaltu-Lim 20-b, 52210 Rovinj, Hrvatska
