@@ -1,7 +1,9 @@
 const path = require('path');
 const fs = require('fs');
+const { Readable } = require('stream');
 const { Client } = require('basic-ftp');
 const chokidar = require('chokidar');
+const CleanCSS = require('clean-css');
 const { getConfig } = require('./ftp-config');
 
 const root = path.join(__dirname, '..');
@@ -33,7 +35,14 @@ async function uploadFile(client, localPath, remoteBase) {
     const remotePath = `${remoteBase.replace(/\\/g, '/').replace(/\/$/, '')}/${rel}`;
     const remoteDir = path.dirname(remotePath).replace(/\\/g, '/');
     if (remoteDir !== '.' && remoteDir !== remoteBase) await client.ensureDir(remoteDir);
-    await client.uploadFrom(localPath, remotePath);
+    if (/\.css$/i.test(localPath) && !/\.min\.css$/i.test(localPath)) {
+        const css = fs.readFileSync(localPath, 'utf8');
+        const minified = new CleanCSS({ level: 2 }).minify(css);
+        const payload = minified.styles || css;
+        await client.uploadFrom(Readable.from([payload]), remotePath);
+    } else {
+        await client.uploadFrom(localPath, remotePath);
+    }
     console.log('Uploaded:', rel);
 }
 

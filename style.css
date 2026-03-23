@@ -9,3 +9,156 @@ This is the child theme for Hello Elementor theme, generated with Generate Child
 
 (optional values you can add: Theme URI, Author URI, License, License URI, Tags, Text Domain)
 */
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+	width: 80%;
+	max-width: 100%;
+    margin: 0 auto;
+	padding: 10px;
+}
+
+@media (min-width: 768px) {
+	.container {
+		width: 100%;
+		max-width: 1280px;
+	}
+}
+
+.pi-archive {
+	margin: 0 auto;
+	padding: 2rem 0 3rem;
+}
+
+.pi-archive__header {
+	margin-bottom: 2rem;
+}
+
+.pi-archive__title {
+	margin: 0 0 0.5rem;
+	font-size: clamp(1.5rem, 4vw, 2rem);
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.pi-archive__desc {
+	margin: 0;
+	font-size: 0.95rem;
+	opacity: 0.85;
+}
+
+.pi-archive__desc:empty {
+	display: none;
+}
+
+.pi-archive__list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.25rem;
+}
+
+.pi-archive__item {
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+.pi-archive__post {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	height: 100%;
+}
+
+.pi-archive__thumb-link {
+	display: block;
+	margin-bottom: 0.35rem;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.pi-archive__thumb {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+}
+
+.pi-archive__link {
+	font-size: 1.05rem;
+	font-weight: 600;
+	text-decoration: none;
+	color: inherit;
+}
+
+.pi-archive__link:hover {
+	text-decoration: underline;
+}
+
+.pi-archive__date {
+	font-size: 0.8rem;
+	opacity: 0.65;
+}
+
+.pi-archive__excerpt {
+	margin: 0;
+	font-size: 0.9rem;
+	line-height: 1.55;
+	opacity: 0.9;
+}
+
+.pi-archive__empty {
+	margin: 0;
+	opacity: 0.75;
+}
+
+.pi-archive .navigation.pagination,
+.pi-archive__pagination {
+	margin-top: 2.5rem;
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.pi-archive .navigation.pagination .page-numbers,
+.pi-archive__pagination .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.25rem;
+	height: 2.25rem;
+	padding: 0 0.5rem;
+	font-size: 0.9rem;
+	text-decoration: none;
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	border-radius: 4px;
+	color: inherit;
+}
+
+.pi-archive .navigation.pagination .page-numbers.current,
+.pi-archive__pagination .page-numbers.current {
+	font-weight: 600;
+	border-color: rgba(0, 0, 0, 0.35);
+}
+
+@media (min-width: 640px) {
+	.pi-archive__list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.pi-archive__list {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
