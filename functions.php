@@ -4,16 +4,54 @@
  *
  * (Please see https://developer.wordpress.org/themes/advanced-topics/child-themes/#how-to-create-a-child-theme)
  */
+add_filter( 'hello_elementor_enqueue_style', '__return_false' );
+add_filter( 'hello_elementor_enqueue_theme_style', '__return_false' );
+
+add_action( 'wp_enqueue_scripts', 'proizvod_info_disable_hello_theme_css', 100 );
+function proizvod_info_disable_hello_theme_css() {
+	wp_dequeue_style( 'hello-elementor' );
+	wp_dequeue_style( 'hello-elementor-theme-style' );
+	wp_dequeue_style( 'hello-elementor-header-footer' );
+}
+
 add_action( 'wp_enqueue_scripts', 'proizvod_info_enqueue_styles', 20 );
 function proizvod_info_enqueue_styles() {
 	$child_style_path = get_stylesheet_directory() . '/style.css';
 	$child_style_ver  = file_exists( $child_style_path ) ? filemtime( $child_style_path ) : null;
 
 	wp_enqueue_style( 'proizvod-info-child-style', get_stylesheet_uri(), array(), $child_style_ver );
+
+	$theme_uri = get_stylesheet_directory_uri();
+	$lucide_path = get_stylesheet_directory() . '/assets/js/lucide.min.js';
+	$pi_header_path = get_stylesheet_directory() . '/assets/js/pi-header.js';
+	wp_enqueue_script(
+		'proizvod-info-lucide',
+		$theme_uri . '/assets/js/lucide.min.js',
+		array(),
+		file_exists( $lucide_path ) ? filemtime( $lucide_path ) : null,
+		true
+	);
+	wp_enqueue_script(
+		'proizvod-info-header',
+		$theme_uri . '/assets/js/pi-header.js',
+		array( 'proizvod-info-lucide' ),
+		file_exists( $pi_header_path ) ? filemtime( $pi_header_path ) : null,
+		true
+	);
 }
 
-add_theme_support('post-thumbnails');
-add_post_type_support('post', 'thumbnail');
+add_action( 'after_setup_theme', 'proizvod_info_setup' );
+function proizvod_info_setup() {
+	register_nav_menus(
+		array(
+			'menu-1' => __( 'Primary', 'proizvod-info' ),
+			'menu-2' => __( 'Footer', 'proizvod-info' ),
+		)
+	);
+	add_theme_support( 'custom-logo' );
+	add_theme_support( 'post-thumbnails' );
+	add_post_type_support( 'post', 'thumbnail' );
+}
 
 function proizvod_info_ucfirst_mb( $str ) {
 	if ( $str === '' || $str === null ) {
@@ -42,6 +80,7 @@ function proizvod_info_posts_per_page( $query ) {
 	}
 	$query->set( 'posts_per_page', 9 );
 }
+
 /*
  * Your code goes below
  */
