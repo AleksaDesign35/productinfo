@@ -99,6 +99,7 @@ async function watch() {
     const deleteDirQueue = [];
     let debounce = null;
     let flushing = false;
+    const usePolling = process.platform === 'darwin' || /^(1|true|yes)$/i.test(process.env.CHOKIDAR_USEPOLLING || '');
 
     async function connect() {
         if (client && !client.closed) return client;
@@ -177,11 +178,30 @@ async function watch() {
         debounce = setTimeout(flush, 300);
     }
 
-    console.log('Watching for changes...');
-    const watcher = chokidar.watch(root, { ignored: /node_modules|\.git|sass\/|scripts\/|source\//, ignoreInitial: true });
+    console.log(`Watching for changes${usePolling ? ' (polling mode)' : ''}...`);
+    const watcher = chokidar.watch(root, {
+        ignored: filePath => {
+            const rel = path.relative(root, filePath);
+            if (!rel || rel === '') return false;
+            if (rel.startsWith('..')) return true;
+            return shouldExclude(rel);
+        },
+        ignoreInitial: true,
+        usePolling,
+        interval: usePolling ? 350 : undefined,
+        binaryInterval: usePolling ? 700 : undefined,
+        awaitWriteFinish: {
+            stabilityThreshold: 400,
+            pollInterval: 100
+        }
+    });
+
     watcher.on('add', scheduleUpload).on('change', scheduleUpload);
     watcher.on('unlink', scheduleDelete);
     watcher.on('unlinkDir', scheduleDeleteDir);
+    watcher.on('error', err => {
+        console.error('Watcher error:', err.message);
+    });
 }
 
 const cmd = process.argv[2];
