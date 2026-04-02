@@ -65,6 +65,8 @@ function proizvod_info_ucfirst_mb( $str ) {
 	return ucfirst( $str );
 }
 
+require_once get_stylesheet_directory() . '/dashboard-analytics.php';
+
 function proizvod_info_get_blog_breadcrumb_item() {
 	$posts_page_id = (int) get_option( 'page_for_posts' );
 

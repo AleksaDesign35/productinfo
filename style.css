@@ -2045,6 +2045,268 @@ p.article-product-paragraph:last-child,
 	}
 }
 
+.pi-dashboard {
+	padding: 2rem 0 4rem;
+	background: #f8fafc;
+}
+
+.pi-dashboard__shell {
+	max-width: 100%;
+}
+
+.pi-dashboard__head {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.pi-dashboard__head-copy {
+	max-width: 52rem;
+}
+
+.pi-dashboard__eyebrow {
+	display: inline-flex;
+	align-items: center;
+	margin-bottom: 0.85rem;
+	font-size: 0.74rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: rgba(16, 24, 40, 0.62);
+}
+
+.pi-dashboard__title {
+	margin: 0;
+	font-size: clamp(2rem, 4vw, 3.25rem);
+	line-height: 1.04;
+	letter-spacing: -0.03em;
+	color: #101828;
+}
+
+.pi-dashboard__desc {
+	margin: 0.95rem 0 0;
+	font-size: 1rem;
+	line-height: 1.75;
+	color: rgba(16, 24, 40, 0.76);
+}
+
+.pi-dashboard__stats {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.pi-dashboard__stat,
+.pi-dashboard__table-card,
+.pi-dashboard__login-card {
+	border: 0.0625rem solid rgba(16, 24, 40, 0.1);
+	border-radius: 1.35rem;
+	background: #ffffff;
+	box-shadow: 0 1rem 2.5rem rgba(16, 24, 40, 0.05);
+}
+
+.pi-dashboard__stat {
+	padding: 1.25rem;
+}
+
+.pi-dashboard__stat-label {
+	display: block;
+	font-size: 0.85rem;
+	line-height: 1.5;
+	color: #667085;
+}
+
+.pi-dashboard__stat-value {
+	display: block;
+	margin-top: 0.45rem;
+	font-size: clamp(1.8rem, 4vw, 2.5rem);
+	line-height: 1;
+	color: #101828;
+}
+
+.pi-dashboard__table-card,
+.pi-dashboard__login-card {
+	padding: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.pi-dashboard__section-head {
+	margin-bottom: 1rem;
+}
+
+.pi-dashboard__section-title {
+	margin: 0;
+	font-size: clamp(1.35rem, 3vw, 1.8rem);
+	line-height: 1.15;
+	color: #101828;
+}
+
+.pi-dashboard__section-desc {
+	margin: 0.65rem 0 0;
+	color: rgba(16, 24, 40, 0.72);
+}
+
+.pi-dashboard__table-wrap {
+	overflow-x: auto;
+}
+
+.pi-dashboard__table {
+	width: 100%;
+	border-collapse: collapse;
+	min-width: 56rem;
+}
+
+.pi-dashboard__table th,
+.pi-dashboard__table td {
+	padding: 0.95rem 1rem;
+	text-align: left;
+	border-top: 0.0625rem solid rgba(16, 24, 40, 0.08);
+	vertical-align: top;
+	font-size: 0.92rem;
+}
+
+.pi-dashboard__table thead th {
+	border-top: none;
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #667085;
+}
+
+.pi-dashboard__table-link,
+.pi-dashboard__table-text {
+	color: #101828;
+}
+
+.pi-dashboard__table-link {
+	text-decoration: none;
+}
+
+.pi-dashboard__table-link:hover,
+.pi-dashboard__table-link:focus-visible {
+	text-decoration: underline;
+}
+
+.pi-dashboard__empty {
+	margin: 0;
+	padding: 1.1rem 1.2rem;
+	border: 0.0625rem dashed rgba(16, 24, 40, 0.16);
+	border-radius: 1rem;
+	color: rgba(16, 24, 40, 0.72);
+}
+
+.pi-dashboard__login {
+	display: flex;
+	justify-content: center;
+}
+
+.pi-dashboard__login-card {
+	width: 100%;
+	max-width: 34rem;
+}
+
+.pi-dashboard__form {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.9rem;
+	margin-top: 1.25rem;
+}
+
+.pi-dashboard__field {
+	display: block;
+}
+
+.pi-dashboard__label {
+	display: block;
+	margin-bottom: 0.45rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #344054;
+}
+
+.pi-dashboard__input {
+	width: 100%;
+	min-height: 3.15rem;
+	padding: 0.85rem 0.95rem;
+	border: 0.0625rem solid rgba(16, 24, 40, 0.14);
+	border-radius: 0.95rem;
+	background: #ffffff;
+	font: inherit;
+	color: #101828;
+}
+
+.pi-dashboard__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 3.15rem;
+	padding: 0.85rem 1.2rem;
+	border: none;
+	border-radius: 999px;
+	background: #101828;
+	color: #ffffff;
+	font: inherit;
+	font-weight: 700;
+	text-decoration: none;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.pi-dashboard__button--ghost {
+	border: 0.0625rem solid rgba(16, 24, 40, 0.14);
+	background: #ffffff;
+	color: #101828;
+}
+
+.pi-dashboard__button:hover,
+.pi-dashboard__button:focus-visible {
+	background: #1f2937;
+}
+
+.pi-dashboard__button--ghost:hover,
+.pi-dashboard__button--ghost:focus-visible {
+	background: #f2f4f7;
+	color: #101828;
+}
+
+.pi-dashboard__message {
+	margin: 1rem 0 0;
+	padding: 0.85rem 0.95rem;
+	border-radius: 0.95rem;
+	font-size: 0.95rem;
+	line-height: 1.55;
+}
+
+.pi-dashboard__message--info {
+	background: #f5f8ff;
+	color: #1d4ed8;
+}
+
+.pi-dashboard__message--error {
+	background: #fff1f3;
+	color: #c01048;
+}
+
+@media (min-width: 768px) {
+	.pi-dashboard__head {
+		flex-direction: row;
+		align-items: flex-end;
+		justify-content: space-between;
+	}
+
+	.pi-dashboard__stats {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.pi-dashboard__stats {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
 .pi-post-bottom {
 	margin-top: 2.5rem;
 	max-width: 52rem;
