@@ -14,6 +14,7 @@ if ( ! is_string( $page_title ) || $page_title === '' ) {
 <main class="pi-affiliate container">
 	<section class="pi-affiliate-hero">
 		<div class="pi-affiliate-hero__content">
+			<?php proizvod_info_render_breadcrumbs( array( 'modifier' => 'light' ) ); ?>
 			<span class="pi-affiliate__eyebrow"><?php esc_html_e( 'Transparentnost', 'proizvod-info' ); ?></span>
 			<h1 class="pi-affiliate__title"><?php echo esc_html( $page_title ); ?></h1>
 			<p class="pi-affiliate__lead"><?php esc_html_e( 'Na ovoj stranici objašnjavamo kako funkcionišu affiliate poveznice, na koji način ostvarujemo proviziju i zašto nam je važno da taj odnos prema čitateljima bude potpuno jasan i transparentan.', 'proizvod-info' ); ?></p>

@@ -43,11 +43,13 @@ function proizvod_info_enqueue_styles() {
 add_action( 'after_setup_theme', 'proizvod_info_setup' );
 function proizvod_info_setup() {
 	register_nav_menus(
-		array(
-			'menu-1' => __( 'Primary', 'proizvod-info' ),
-			'menu-2' => __( 'Footer', 'proizvod-info' ),
-		)
-	);
+        array(
+            'menu-1' => __( 'Primary', 'proizvod-info' ),
+            'menu-2' => __( 'Footer Quick Links', 'proizvod-info' ),
+            'menu-3' => __( 'Footer Categories', 'proizvod-info' ),
+            'menu-4' => __( 'Footer Info', 'proizvod-info' ),
+        )
+    );
 	add_theme_support( 'custom-logo' );
 	add_theme_support( 'post-thumbnails' );
 	add_post_type_support( 'post', 'thumbnail' );
@@ -61,6 +63,237 @@ function proizvod_info_ucfirst_mb( $str ) {
 		return mb_strtoupper( mb_substr( $str, 0, 1, 'UTF-8' ), 'UTF-8' ) . mb_substr( $str, 1, null, 'UTF-8' );
 	}
 	return ucfirst( $str );
+}
+
+function proizvod_info_get_blog_breadcrumb_item() {
+	$posts_page_id = (int) get_option( 'page_for_posts' );
+
+	if ( $posts_page_id > 0 ) {
+		$posts_page_url   = get_permalink( $posts_page_id );
+		$posts_page_title = get_the_title( $posts_page_id );
+
+		if ( is_string( $posts_page_url ) && $posts_page_url !== '' && is_string( $posts_page_title ) && $posts_page_title !== '' ) {
+			return array(
+				'label' => $posts_page_title,
+				'url'   => $posts_page_url,
+			);
+		}
+	}
+
+	return array(
+		'label' => __( 'Blog', 'proizvod-info' ),
+		'url'   => home_url( '/blog/' ),
+	);
+}
+
+function proizvod_info_get_home_breadcrumb_item() {
+	return array(
+		'label' => __( 'Početna', 'proizvod-info' ),
+		'url'   => home_url( '/' ),
+	);
+}
+
+function proizvod_info_get_term_breadcrumb_items( $term ) {
+	if ( ! $term instanceof WP_Term ) {
+		return array();
+	}
+
+	$items = array(
+		proizvod_info_get_home_breadcrumb_item(),
+	);
+
+	$ancestor_ids = array_reverse( get_ancestors( (int) $term->term_id, $term->taxonomy, 'taxonomy' ) );
+
+	foreach ( $ancestor_ids as $ancestor_id ) {
+		$ancestor_term = get_term( (int) $ancestor_id, $term->taxonomy );
+
+		if ( ! $ancestor_term instanceof WP_Term ) {
+			continue;
+		}
+
+		$ancestor_link = get_term_link( $ancestor_term );
+
+		if ( is_wp_error( $ancestor_link ) ) {
+			$ancestor_link = '';
+		}
+
+		$items[] = array(
+			'label' => $ancestor_term->name,
+			'url'   => $ancestor_link,
+		);
+	}
+
+	$items[] = array(
+		'label' => $term->name,
+		'url'   => '',
+	);
+
+	return $items;
+}
+
+function proizvod_info_get_archive_breadcrumb_items() {
+	if ( is_home() && ! is_front_page() ) {
+		$blog_item        = proizvod_info_get_blog_breadcrumb_item();
+		$blog_item['url'] = '';
+
+		return array(
+			proizvod_info_get_home_breadcrumb_item(),
+			$blog_item,
+		);
+	}
+
+	if ( is_category() ) {
+		return proizvod_info_get_term_breadcrumb_items( get_queried_object() );
+	}
+
+	if ( is_tag() ) {
+		$tag = get_queried_object();
+
+		if ( $tag instanceof WP_Term ) {
+			return array(
+				proizvod_info_get_home_breadcrumb_item(),
+				array(
+					'label' => $tag->name,
+					'url'   => '',
+				),
+			);
+		}
+	}
+
+	if ( is_tax() ) {
+		return proizvod_info_get_term_breadcrumb_items( get_queried_object() );
+	}
+
+	if ( is_author() || is_date() ) {
+		return array(
+			proizvod_info_get_home_breadcrumb_item(),
+			array(
+				'label' => wp_strip_all_tags( get_the_archive_title() ),
+				'url'   => '',
+			),
+		);
+	}
+
+	if ( is_post_type_archive() ) {
+		$post_type = get_query_var( 'post_type' );
+
+		if ( is_array( $post_type ) ) {
+			$post_type = reset( $post_type );
+		}
+
+		$post_type_object = is_string( $post_type ) ? get_post_type_object( $post_type ) : null;
+
+		if ( $post_type_object ) {
+			return array(
+				proizvod_info_get_home_breadcrumb_item(),
+				array(
+					'label' => $post_type_object->labels->name,
+					'url'   => '',
+				),
+			);
+		}
+	}
+
+	if ( is_archive() ) {
+		return array(
+			proizvod_info_get_home_breadcrumb_item(),
+			array(
+				'label' => wp_strip_all_tags( get_the_archive_title() ),
+				'url'   => '',
+			),
+		);
+	}
+
+	return array();
+}
+
+function proizvod_info_get_breadcrumb_items() {
+	if ( is_home() || is_archive() ) {
+		return proizvod_info_get_archive_breadcrumb_items();
+	}
+
+	$queried_id = get_queried_object_id();
+
+	if ( $queried_id <= 0 ) {
+		return array();
+	}
+
+	$items = array(
+		proizvod_info_get_home_breadcrumb_item(),
+	);
+
+	if ( is_singular( 'post' ) ) {
+		$items[] = proizvod_info_get_blog_breadcrumb_item();
+		$items[] = array(
+			'label' => get_the_title( $queried_id ),
+			'url'   => '',
+		);
+
+		return $items;
+	}
+
+	if ( is_page() ) {
+		$ancestor_ids = array_reverse( get_post_ancestors( $queried_id ) );
+
+		foreach ( $ancestor_ids as $ancestor_id ) {
+			$items[] = array(
+				'label' => get_the_title( $ancestor_id ),
+				'url'   => get_permalink( $ancestor_id ),
+			);
+		}
+
+		$items[] = array(
+			'label' => get_the_title( $queried_id ),
+			'url'   => '',
+		);
+
+		return $items;
+	}
+
+	return array();
+}
+
+function proizvod_info_render_breadcrumbs( $args = array() ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'modifier' => '',
+		)
+	);
+
+	$items = proizvod_info_get_breadcrumb_items();
+
+	if ( count( $items ) < 2 ) {
+		return;
+	}
+
+	$classes = array( 'pi-breadcrumbs' );
+
+	if ( $args['modifier'] === 'light' ) {
+		$classes[] = 'pi-breadcrumbs--light';
+	}
+
+	$last_index = count( $items ) - 1;
+
+	echo '<nav class="' . esc_attr( implode( ' ', $classes ) ) . '" aria-label="' . esc_attr__( 'Breadcrumb', 'proizvod-info' ) . '">';
+	echo '<ol class="pi-breadcrumbs__list">';
+
+	foreach ( $items as $index => $item ) {
+		$is_current = $index === $last_index;
+
+		echo '<li class="pi-breadcrumbs__item">';
+
+		if ( ! $is_current && ! empty( $item['url'] ) ) {
+			echo '<a class="pi-breadcrumbs__link" href="' . esc_url( $item['url'] ) . '">' . esc_html( $item['label'] ) . '</a>';
+		} else {
+			echo '<span class="pi-breadcrumbs__current" aria-current="page">' . esc_html( $item['label'] ) . '</span>';
+		}
+
+		echo '</li>';
+	}
+
+	echo '</ol>';
+	echo '</nav>';
 }
 
 add_action( 'pre_get_posts', 'proizvod_info_posts_per_page' );
@@ -502,6 +735,15 @@ function proizvod_info_append_post_bottom_section( $content ) {
 	<?php
 	return $content . ob_get_clean();
 }
+
+
+add_action('pre_get_posts', function ($query) {
+	if (is_admin() || !$query->is_main_query() || !$query->is_home()) {
+		return;
+	}
+
+	$query->set('category_name', 'blog');
+});
 
 /*
  * Your code goes below

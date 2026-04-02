@@ -5,22 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $site_name           = get_bloginfo( 'name' );
 $tagline             = get_bloginfo( 'description', 'display' );
-$header_categories   = get_categories(
-	array(
-		'taxonomy'   => 'category',
-		'hide_empty' => true,
-	)
-);
-$current_category_id = 0;
 
-if ( is_category() ) {
-	$current_category_id = (int) get_queried_object_id();
-} elseif ( is_single() ) {
-	$current_post_categories = get_the_category();
-	if ( ! empty( $current_post_categories ) ) {
-		$current_category_id = (int) $current_post_categories[0]->term_id;
-	}
-}
 
 $logo_abs  = content_url( 'uploads/2026/03/proizvod-info.svg' );
 $logo_src  = wp_parse_url( $logo_abs, PHP_URL_PATH );
@@ -54,11 +39,7 @@ $render_primary_nav = static function ( $parent_id = 0 ) use ( &$render_primary_
 		if ( $parent_id === 0 && untrailingslashit( $menu_item->url ) === untrailingslashit( home_url( '/' ) ) ) {
 			continue;
 		}
-
-		if ( $parent_id === 0 && $menu_item->object === 'category' ) {
-			continue;
-		}
-
+        
 		$item_classes = array( 'menu-item' );
 		if ( ! empty( $menu_item->classes ) && is_array( $menu_item->classes ) ) {
 			foreach ( $menu_item->classes as $menu_class ) {
@@ -111,11 +92,6 @@ $primary_nav_markup = $render_primary_nav();
 						<li class="menu-item<?php echo is_front_page() ? ' current-menu-item' : ''; ?>">
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Početna', 'proizvod-info' ); ?></a>
 						</li>
-						<?php foreach ( $header_categories as $header_category ) : ?>
-							<li class="menu-item<?php echo $current_category_id === (int) $header_category->term_id ? ' current-menu-item' : ''; ?>">
-								<a href="<?php echo esc_url( get_category_link( $header_category->term_id ) ); ?>"><?php echo esc_html( $header_category->name ); ?></a>
-							</li>
-						<?php endforeach; ?>
 						<?php if ( $primary_nav_markup ) : ?>
 							<?php
 							$primary_nav_markup = preg_replace( '/^<ul class="pi-site-nav__list">/', '', $primary_nav_markup );

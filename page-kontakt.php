@@ -15,6 +15,7 @@ if ( ! is_string( $page_title ) || $page_title === '' ) {
 <main class="pi-contact container">
 	<section class="pi-contact-hero">
 		<div class="pi-contact-hero__content">
+			<?php proizvod_info_render_breadcrumbs( array( 'modifier' => 'light' ) ); ?>
 			<span class="pi-contact__eyebrow"><?php esc_html_e( 'Kontakt', 'proizvod-info' ); ?></span>
 			<h1 class="pi-contact__title"><?php echo esc_html( $page_title ); ?></h1>
 			<p class="pi-contact__lead"><?php esc_html_e( 'Ako imaš pitanje, prijedlog proizvoda za obradu, uočenu grešku ili želiš pokrenuti saradnju, pošalji poruku kroz formu ispod. Poruka stiže direktno u WordPress administraciju sajta kako bi bila pregledana na jednom mjestu.', 'proizvod-info' ); ?></p>

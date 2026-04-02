@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <main class="pi-archive container" id="pi-archive-main">
 	<header class="pi-archive__header">
+		<?php proizvod_info_render_breadcrumbs(); ?>
 		<?php
 		if ( is_home() && ! is_front_page() ) {
 			$posts_page_id = (int) get_option( 'page_for_posts' );

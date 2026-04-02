@@ -108,8 +108,8 @@ foreach ( $top_categories as $category ) {
 		<div class="container pi-home-hero__inner">
 			<div class="pi-home-hero__content">
 				<span class="pi-home-eyebrow">Blog o proizvodima i informativnim vodičima</span>
-				<h1 class="pi-home-hero__title">Jasni članci koji pomažu da brže i sigurnije izabereš pravi proizvod.</h1>
-				<p class="pi-home-hero__desc">Proizvod Info okuplja vodiče, poređenja i praktične informacije bez suvišne buke. Fokus je na onome što korisniku zaista treba prije kupovine: kontekst, razlike i jasan zaključak.</p>
+				<h1 class="pi-home-hero__title">Recenzije proizvoda, vodiči za kupnju i usporedbe na jednom mjestu</h1>
+				<p class="pi-home-hero__desc">Proizvod Info objavljuje recenzije proizvoda, vodiče za kupnju i usporedbe modela kako bi lakše odabrao pravi uređaj za dom, posao, školu, auto opremu i svakodnevnu upotrebu.</p>
 				<div class="pi-home-hero__actions">
 					<a class="pi-home-hero__btn pi-home-hero__btn--primary" href="<?php echo esc_url( $blog_url ); ?>">Pogledaj najnovije članke</a>
 				</div>
@@ -140,23 +140,23 @@ foreach ( $top_categories as $category ) {
 			<div class="pi-home-proof__grid">
 				<article class="pi-home-proof__card">
 					<span class="pi-home-proof__icon" aria-hidden="true"><i data-lucide="badge-check"></i></span>
-					<h2 class="pi-home-proof__title">Provjeren pristup</h2>
-					<p class="pi-home-proof__text">Teme biramo tako da sadržaj bude koristan i čitljiv, a ne samo tehnički tačan.</p>
+					<h2 class="pi-home-proof__title">Lakše do odluke</h2>
+					<p class="pi-home-proof__text">Izdvajamo informacije koje najviše pomažu kad uspoređuješ proizvode i biraš šta kupiti.</p>
 				</article>
 				<article class="pi-home-proof__card">
 					<span class="pi-home-proof__icon" aria-hidden="true"><i data-lucide="scale"></i></span>
-					<h2 class="pi-home-proof__title">Jasna poređenja</h2>
-					<p class="pi-home-proof__text">Razlike između proizvoda objašnjene su kroz stvarnu upotrebu, cijenu i vrijednost.</p>
+					<h2 class="pi-home-proof__title">Jasne razlike među modelima</h2>
+					<p class="pi-home-proof__text">Usporedbe su složene tako da se lakše vide prednosti, mane i razlike koje stvarno utiču na kupnju.</p>
 				</article>
 				<article class="pi-home-proof__card">
 					<span class="pi-home-proof__icon" aria-hidden="true"><i data-lucide="refresh-cw"></i></span>
-					<h2 class="pi-home-proof__title">Aktuelne informacije</h2>
-					<p class="pi-home-proof__text">Sadržaj se redovno osvježava kada tržište donese novu ili bolju opciju.</p>
+					<h2 class="pi-home-proof__title">Brži pregled ponude</h2>
+					<p class="pi-home-proof__text">Na jednom mjestu možeš pregledati više modela, njihove karakteristike i ono po čemu se razlikuju.</p>
 				</article>
 				<article class="pi-home-proof__card">
 					<span class="pi-home-proof__icon" aria-hidden="true"><i data-lucide="users"></i></span>
-					<h2 class="pi-home-proof__title">Pisano za korisnika</h2>
-					<p class="pi-home-proof__text">Tekstovi su kratki, pregledni i korisni i kad nemaš vremena čitati sve detalje.</p>
+					<h2 class="pi-home-proof__title">Jednostavnije za čitanje</h2>
+					<p class="pi-home-proof__text">Sadržaj je organiziran pregledno i bez nepotrebnog kompliciranja kako bi odluka bila lakša.</p>
 				</article>
 			</div>
 		</section>
@@ -165,7 +165,7 @@ foreach ( $top_categories as $category ) {
 			<div class="pi-home-section__head">
 				<div>
 					<span class="pi-home-eyebrow">Novi sadržaj</span>
-					<h2 class="pi-home-section__title">Najnoviji članci i vodiči</h2>
+					<h2 class="pi-home-section__title">Najnovije recenzije proizvoda i vodiči za kupnju pomažu ti da usporediš modele, vidiš ključne razlike i lakše odabereš ono što ti zaista treba.</h2>
 				</div>
 				<a class="pi-home-section__link" href="<?php echo esc_url( $blog_url ); ?>">Otvori blog</a>
 			</div>
@@ -196,7 +196,7 @@ foreach ( $top_categories as $category ) {
 			<div class="pi-home-section__head">
 				<div>
 					<span class="pi-home-eyebrow">Kategorije</span>
-					<h2 class="pi-home-section__title">Teme koje su trenutno najvažnije</h2>
+					<h2 class="pi-home-section__title">Pregledaj kategorije recenzija proizvoda i vodiča za kupnju te pronađi temu koja te trenutno najviše zanima.</h2>
 				</div>
 			</div>
 
@@ -266,7 +266,7 @@ foreach ( $top_categories as $category ) {
 			<div class="pi-home-newsletter__box">
 				<div class="pi-home-newsletter__content">
 					<span class="pi-home-eyebrow">Newsletter</span>
-					<h2 class="pi-home-newsletter__title">Prijavi se za kratak pregled novih preporuka i korisnih vodiča.</h2>
+					<h2 class="pi-home-newsletter__title">Prijavi se za nove recenzije proizvoda, usporedbe modela i vodiče za kupnju kako bi korisne preporuke dobio direktno na email.</h2>
 					<p class="pi-home-newsletter__desc">Umjesto da provjeravaš sajt svaki put, dobit ćeš najnovije članke, poređenja i informativne teme direktno na email kada objavimo nešto vrijedno čitanja.</p>
 					<ul class="pi-home-newsletter__benefits">
 						<li>Novi članci i poređenja na jednom mjestu</li>
